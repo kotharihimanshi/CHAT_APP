@@ -4,6 +4,8 @@ import { login, logout, signup, updateProfile, checkAuth } from "../controllers/
 
 const router = express.Router();
 
+router.post("/login", loginUser);
+
 router.post("/signup", signup);
 router.post("/login", login);
 router.post("/logout", logout); // ✅ FIXED
