@@ -4,7 +4,8 @@ import http from "http";
 import { Server } from "socket.io";
 import cookieParser from "cookie-parser";
 import cors from "cors";
-import path from "path";
+// import path from "path";
+// import { fileURLToPath } from "url";
 
 // Custom imports
 import authRoutes from "./routes/auth.routes.js";
@@ -34,21 +35,31 @@ app.use(cookieParser());
 app.use(cors({
   origin: process.env.CLIENT_URL || "http://localhost:5173",
   credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE"],
 }));
 
 // Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
-// Serve frontend in production
-const __dirname = path.resolve(); // Needed for ES modules
-if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+// // Serve frontend in production
+// const __dirname = path.resolve(); // Needed for ES modules
+// if (process.env.NODE_ENV === "production") {
+//   app.use(express.static(path.join(__dirname, "../frontend/dist")));
 
-  app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
-  });
-}
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
+//   });
+// }
+
+
+// // Required for dirname in ES Module
+// const filename = fileURLToPath(import.meta.url);
+// const dirname = path.dirname(filename);
+
+// // Serve static frontend
+// app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
 
 // Socket.io events
 io.on("connection", (socket) => {
