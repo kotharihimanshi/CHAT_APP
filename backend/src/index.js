@@ -25,7 +25,7 @@ const io = new Server(server, {
   },
 });
 
-// Attach io to app so controllers can access it
+// Attach io to app so controllers can access it hi
 app.set("io", io);
 
 // Middlewares
